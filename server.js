@@ -4,9 +4,9 @@ var mongo = require('mongodb').MongoClient;
 
 //google api key stored in environment variable:
 // 'export VAR_NAME="value"'
-//GOOGLE_API_KEY
-//GOOGLE_CX
-//MONGOLAB_URI
+//GOOGLE_API_KEY 
+//GOOGLE_CX 
+//MONGOLAB_URI 
 
 var mongo_url = process.env.MONGOLAB_URI;
 
@@ -14,10 +14,6 @@ var GoogleSearch = require('google-search');
 var googleSearch = new GoogleSearch({
     key: process.env.GOOGLE_API_KEY,
     cx: process.env.GOOGLE_CX
-});
-
-app.get('/', function(req, res){
-   res.send("add '/search/' with a term and an optional offset to the url above, such as '/search/flipper?offset=5'"); 
 });
 
 app.get('/search/:term', function (req, res) {
@@ -89,6 +85,10 @@ app.get('/latest', function (req, res) {
             db.close();
         });
     });
+});
+
+app.get('/', function(req, res){
+   res.send("add '/search/' with a term and an optional offset to the url above, such as '/search/flipper?offset=5'"); 
 });
 
 var server_port = process.env.YOUR_PORT || process.env.PORT || 8080;
