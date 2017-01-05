@@ -83,6 +83,7 @@ app.get('/latest', function (req, res) {
         var all_records = records.find({},{"term":1, "when":1, "_id":0}).toArray(function(err, all_records){
             if (err) throw err;
             console.log(all_records);
+            var recent_records = all_records.slice(0,5);
             res.send(all_records.reverse());
             db.close();
         });
