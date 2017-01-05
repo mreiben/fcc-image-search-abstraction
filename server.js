@@ -19,6 +19,8 @@ var googleSearch = new GoogleSearch({
 app.get('/search/:term', function (req, res) {
     var term = req.params.term;
     var offset = req.query.offset;
+    if (offset == undefined){ offset = 10; }
+    console.log(term + " " + offset);
     
     //connect to mongodb through mlab
     mongo.connect(mongo_url, function(err, db){
@@ -31,7 +33,7 @@ app.get('/search/:term', function (req, res) {
                 + currentdate.getMinutes() + ":" + currentdate.getSeconds();
             
             var doc = { term: term, when: datetime }
-            
+
             //add doc with search term and current timestamp
             var records = db.collection('record');
             records.insert(doc, function(err, data){
@@ -48,7 +50,7 @@ app.get('/search/:term', function (req, res) {
     }, function(error, response) {
         var res_arr = Object.keys(response).map(function(k) { return response[k]; });
         var json_data = {};
-        
+        console.log(response);
         var i = 1;
         
         res_arr[5].forEach(function(entry){
