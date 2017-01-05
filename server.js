@@ -24,25 +24,25 @@ app.get('/search/:term', function (req, res) {
     
     //connect to mongodb through mlab
     mongo.connect(mongo_url, function(err, db){
-            if (err) throw err;
+        if (err) throw err;
             
-            var currentdate = new Date();
-            var datetime = currentdate.getDay() + "/"+ (currentdate.getMonth()+1) 
-                + "/" + currentdate.getFullYear() + " @ " 
-                + currentdate.getHours() + ":" 
-                + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+        var currentdate = new Date();
+        var datetime = currentdate.getDay() + "/"+ (currentdate.getMonth()+1) 
+            + "/" + currentdate.getFullYear() + " @ " 
+            + currentdate.getHours() + ":" 
+            + currentdate.getMinutes() + ":" + currentdate.getSeconds();
             
-            var doc = { term: term, when: datetime }
+        var doc = { term: term, when: datetime }
 
-            //add doc with search term and current timestamp
-            var records = db.collection('record');
-            records.insert(doc, function(err, data){
-                if (err) throw err;
-                console.log(JSON.stringify(doc));
-            })
-            
-            db.close();
+        //add doc with search term and current timestamp
+        var records = db.collection('record');
+        records.insert(doc, function(err, data){
+            if (err) throw err;
+            console.log(JSON.stringify(doc));
         });
+            
+        db.close();
+    });
     
     googleSearch.build({
         q: term,
